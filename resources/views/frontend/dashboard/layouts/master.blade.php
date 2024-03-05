@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
     <title>One Shop || e-Commerce HTML Template</title>
     <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }}">
@@ -25,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}"> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -101,6 +103,15 @@
 
 <!--main/custom js-->
 <script src="{{ asset('frontend/js/main.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+    toastr.error("{{ $error }}")
+    @endforeach
+    @endif
+</script>
 </body>
 
 </html>

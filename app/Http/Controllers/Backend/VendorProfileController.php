@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-class ProfileController extends Controller
+class VendorProfileController extends Controller
 {
     public function index()
     {
-        return view('admin.profile.index');
+        return view('vendor.dashboard.profile');
     }
 
     public function updateProfile(Request $request)
@@ -53,7 +53,6 @@ class ProfileController extends Controller
         ]);
 
         $request->user()->update([
-
             'password' => bcrypt($request->password),
         ]);
 
