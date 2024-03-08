@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>General Dashboard &mdash; Stisla</title>
 
     <!-- General CSS Files -->
@@ -15,7 +16,8 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
@@ -23,7 +25,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-94034622-3');
@@ -49,7 +55,9 @@
         </div>
         <footer class="main-footer">
             <div class="footer-left">
-                Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                Copyright &copy; 2018
+                <div class="bullet"></div>
+                Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
             </div>
             <div class="footer-right">
 
@@ -83,14 +91,74 @@
 <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.js"></script>
+<script src="https://kit.fontawesome.com/afe9958eb2.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     @if($errors->any())
-        @foreach($errors->all() as $error)
-            toastr.error("{{ $error }}")
-        @endforeach
+    @foreach($errors->all() as $error)
+    toastr.error("{{ $error }}")
+    @endforeach
     @endif
 </script>
+
+{{--Dynamic Delete Alert--}}
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('body').on('click', '.delete-item', function (event) {
+            event.preventDefault();
+
+            let deleteUrl = $(this).attr('href');
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: deleteUrl,
+
+                        success: function (data) {
+                            if (data.status == 'success') {
+                                Swal.fire(
+                                    'Deleted!',
+                                    data.message,
+                                )
+                                window.location.reload();
+                            }else if(data.status == 'error') {
+                                Swal.fire(
+                                    'Cant Delete!',
+                                    data.message,
+                                )
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
+                }
+            });
+        })
+    })
+</script>
+
+@stack('script')
 
 </body>
 </html>
