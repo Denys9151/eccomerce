@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductImageGalleryDataTable extends DataTable
+class VendorProductImageGalleryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,7 +23,7 @@ class ProductImageGalleryDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('admin.products-image-gallery.destroy', $query->id) . "' class='btn btn-danger delete-item ml-2'><i class='fa-regular fa-trash-can'></i></a>";
+                $deleteBtn = "<a href='" . route('vendor.products-image-gallery.destroy', $query->id) . "' class='btn btn-danger delete-item ml-2'><i class='fa-regular fa-trash-can'></i></a>";
                 return $deleteBtn;
             })
             ->addColumn('image', function ($query) {
@@ -47,7 +47,7 @@ class ProductImageGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('productimagegallery-table')
+                    ->setTableId('vendorproductimagegallery-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -84,6 +84,6 @@ class ProductImageGalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'VendorProductImageGallery_' . date('YmdHis');
     }
 }

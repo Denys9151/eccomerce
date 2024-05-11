@@ -109,7 +109,6 @@
 </script>
 
 {{--Dynamic Delete Alert--}}
-
 <script>
     $(document).ready(function () {
         $.ajaxSetup({
