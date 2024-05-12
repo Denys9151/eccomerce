@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\ProductVariantController;
 use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -52,14 +53,14 @@ Route::get('product/get-child-categories', [ProductController::class, 'getChildC
 Route::put('/products/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('/products', ProductController::class);
 
-/*Products image gallery route*/
+/*Products image gallery route **/
 Route::resource('/products-image-gallery', ProductImageGalleryController::class);
 
 /*Product variant route*/
 Route::put('/products-variant/change-status', [ProductVariantController::class, 'changeStatus'])->name('products-variant.change-status');
 Route::resource('/products-variant', ProductVariantController::class);
 
-/*Product variant item route*/
+/*Product variant item route **/
 Route::get('/products-variant-item/{productId}/{variantItemId}', [ProductVariantItemController::class, 'index'])->name('products-variant-item.index');
 Route::get('/products-variant-item/create/{productId}/{variantItemId}', [ProductVariantItemController::class, 'create'])->name('products-variant-item.create');
 Route::post('/products-variant-item', [ProductVariantItemController::class, 'store'])->name('products-variant-item.store');
@@ -67,3 +68,8 @@ Route::get('/products-variant-item-edit/{variantItemId}', [ProductVariantItemCon
 Route::put('/products-variant-item-update/{variantItemId}', [ProductVariantItemController::class, 'update'])->name('products-variant-item.update');
 Route::delete('/products-variant-item/{variantItemId}', [ProductVariantItemController::class, 'destroy'])->name('products-variant-item.destroy');
 Route::put('/products-variant-item-status', [ProductVariantItemController::class, 'changeStatus'])->name('products-variant-item.change-status');
+
+/** Seller product routes **/
+Route::get('/seller-products', [SellerProductController::class, 'index'])->name('seller-products.index');
+Route::get('/seller-pending-products', [SellerProductController::class, 'pendingProducts'])->name('seller-pending-products.index');
+Route::put('/change-approved-status', [SellerProductController::class, 'changeApprovedStatus'])->name('change-approved-status');
