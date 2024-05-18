@@ -53,7 +53,7 @@ class ProductDataTable extends DataTable
                     case 'best_product':
                         return '<i class="badge badge-danger">Best Product</i>';
                         break;
-                    case 'best_product':
+                    default:
                         return '<i class="badge badge-dark">None</i>';
                         break;
                 }
