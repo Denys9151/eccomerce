@@ -9528,3 +9528,7 @@ li.page-item > .page-link{
     -ms-transition: all linear 0.3s ease;
     -o-transition: all linear 0.3s ease;
 }
+
+.exzoom_zoom_outer {
+    z-index: 9999; !important;
+}
