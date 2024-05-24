@@ -1,6 +1,10 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
 @extends('vendor.layouts.master')
 
+@section('title')
+    {{ $settings->site_name }} || Shop Profile
+@endsection
+
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">

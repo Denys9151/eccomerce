@@ -9409,6 +9409,7 @@ a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
     color: #08C;
 }
+
 /* extra css end here */
 
 .margin_input input {
@@ -9422,6 +9423,7 @@ a:not([href]):not([class]):hover {
     border: 1px solid #eee;
     margin-bottom: 10px;
 }
+
 .margin_input textarea {
     display: block;
     width: 100%;
@@ -9454,7 +9456,8 @@ a:not([href]):not([class]):hover {
 
 .create_button {
     text-align: right;
-    margin-bottom: 10px; !important;
+    margin-bottom: 10px;
+!important;
 }
 
 .delete-item {
@@ -9462,7 +9465,8 @@ a:not([href]):not([class]):hover {
 }
 
 .btn-space-right {
-    margin-right: 3px; !important;
+    margin-right: 3px;
+!important;
 }
 
 li.page-item.disabled > .page-link {
@@ -9501,7 +9505,7 @@ li.page-item.active > .page-link {
     margin-right: 10px;
 }
 
-li.page-item > .page-link{
+li.page-item > .page-link {
     width: 35px;
     height: 35px;
     padding: 0;
@@ -9514,7 +9518,8 @@ li.page-item > .page-link{
     -moz-transition: all linear 0.3s;
     -ms-transition: all linear 0.3s;
     -o-transition: all linear 0.3s;
-    border-radius: 100%; !important;
+    border-radius: 100%;
+!important;
     border: 1px solid #08C;
     margin-right: 10px;
 }
@@ -9530,5 +9535,26 @@ li.page-item > .page-link{
 }
 
 .exzoom_zoom_outer {
-    z-index: 9999; !important;
+    z-index: 9999;
+!important;
+}
+
+.product_qty_wrapper {
+    display: flex;
+!important;
+}
+
+.product-qty {
+    width: 43px;
+    height: 36px;
+    padding: 5px;
+}
+
+.wsus__cart_list .wsus__pro_name {
+    width: 285px;
+}
+
+.wsus__mini_cart .wsus__cart_img img {
+    height: 70px;
+    object-fit: cover;
 }
