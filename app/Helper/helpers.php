@@ -92,11 +92,11 @@ function getCartDiscount()
         if ($coupon['discount_type'] == 'amount') {
             return $coupon['discount'];
         } elseif ($coupon['discount_type'] == 'percent') {
-            $discount = $subTotal - ($subTotal * ($coupon['discount'] / 100));
+            $discount = $subTotal * ($coupon['discount'] / 100);
             return $discount;
         }
     } else {
-        return getCartTotal();
+        return 0;
     }
 }
 
