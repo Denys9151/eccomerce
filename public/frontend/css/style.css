@@ -9580,3 +9580,39 @@ li.page-item > .page-link {
     -o-transition: all linear 0.3s ease;
     width: 100%;
 }
+
+.add_cart_two {
+    position: static;
+    padding: 0px 19px;
+    font-size: 16px;
+    width: auto;
+    height: 40px;
+    color: #fff;
+    border: 1px solid #08C;
+    background: #08C;
+    margin-right: 10px;
+}
+
+.add_cart_two:hover {
+
+    color: #08C;
+    border: 1px solid #08C;
+    background: #fff;
+
+}
+
+.wsus__pro_det_review .wsus__comment_text ul li {
+    width: 20% !important;
+    height: 20% !important;
+    margin-right: 10px;
+    float: left;
+}
+
+.wsus__hot_deals__single_img img {
+    width: 200px !important;
+    height: 150px !important;
+    object-fit: cover;
+}
+.add_cart {
+    border: 0px !important;
+}

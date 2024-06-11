@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleController;
+use App\Http\Controllers\Backend\HomePageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PaypalSettingsController;
@@ -120,6 +121,13 @@ Route::get('/transactions', [TransactionController::class, 'index'])->name('tran
 /** Settings routes */
 Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting-update');
+
+/** Home page setting routes */
+Route::get('/home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
+Route::put('/popular-category-section', [HomePageSettingController::class, 'updatePopularCategorySection'])->name('popular-category-section');
+Route::put('/popular-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])->name('popular-slider-section-one');
+Route::put('/popular-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])->name('popular-slider-section-two');
+Route::put('/popular-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])->name('popular-slider-section-three');
 
 /** Payment settings routes */
 Route::get('/payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');

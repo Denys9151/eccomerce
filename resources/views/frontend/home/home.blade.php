@@ -26,7 +26,7 @@
     <!--============================
        MONTHLY TOP PRODUCT START
     ==============================-->
-    @include('frontend.home.sections.monthly-top-product')
+    @include('frontend.home.sections.top-category-product')
     <!--============================
        MONTHLY TOP PRODUCT END
     ==============================-->
@@ -98,7 +98,7 @@
     <!--============================
       HOME SERVICES START
     ==============================-->
-    @include('frontend.home.sections.services')
+{{--    @include('frontend.home.sections.services')--}}
     <!--============================
         HOME SERVICES END
     ==============================-->
@@ -107,7 +107,7 @@
     <!--============================
         HOME BLOGS START
     ==============================-->
-    @include('frontend.home.sections.blog')
+{{--    @include('frontend.home.sections.blog')--}}
     <!--============================
         HOME BLOGS END
     ==============================-->
