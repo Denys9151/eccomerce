@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\NewsLetterController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
@@ -59,6 +60,9 @@ Route::get('/cart/sidebar-product-total', [CartController::class, 'cartTotal'])-
 Route::get('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
 Route::get('/coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon-calculation');
 
+/** News Letter routes */
+Route::post('/news-letter-request', [NewsLetterController::class, 'newsLetterRequest'])->name('news-letter-request');
+Route::get('/news-letter-verify/{token}', [NewsLetterController::class, 'newsLetterEmailVerify'])->name('news-letter-verify');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -99,7 +103,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** Razorpay routes */
     Route::post('/razorpay/payment', [PaymentController::class, 'payWithRazorpay'])->name('razorpay.payment');
-
-
 });
 
