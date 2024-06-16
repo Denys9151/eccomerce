@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Advertisement;
 
 class FrontendProductController extends Controller
 {
@@ -90,9 +91,12 @@ class FrontendProductController extends Controller
             $products = Product::where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->paginate(12);
         }
 
+        $productpage_banner_section = Advertisement::where('key', 'productpage_banner_section')->first();
+        $productpage_banner_section = json_decode($productpage_banner_section?->value);
+
         $categories = Category::where('status', 1)->get();
         $brands = Brand::where('status', 1)->get();
-        return view('frontend.pages.product', compact('products', 'categories', 'brands'));
+        return view('frontend.pages.product', compact('products', 'categories', 'brands', 'productpage_banner_section'));
     }
 
     /** Show product detail page */

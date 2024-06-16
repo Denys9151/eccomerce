@@ -9,6 +9,7 @@ use App\Models\ProductVariantItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Advertisement;
 
 class CartController extends Controller
 {
@@ -71,7 +72,10 @@ class CartController extends Controller
             return redirect()->route('home');
         }
 
-        return view('frontend.pages.cart-detail', compact('cartItems'));
+        $cartpage_banner_section = Advertisement::where('key', 'cartpage_banner_section')->first();
+        $cartpage_banner_section = json_decode($cartpage_banner_section?->value);
+
+        return view('frontend.pages.cart-detail', compact('cartItems', 'cartpage_banner_section'));
     }
 
     /** Update product quantity */
