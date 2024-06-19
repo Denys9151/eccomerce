@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BrandDataTable extends DataTable
+class AdminListDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,47 +23,38 @@ class BrandDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.admin-list.destroy', $query->id) . "' class='btn btn-primary'><i class='fa-regular fa-pen-to-square'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.brand.destroy', $query->id) . "' class='btn btn-danger delete-item'><i class='fa-regular fa-trash-can'></i></a>";
+                if ($query->id != 1) {
+                    $deleteBtn = "<a href='" . route('admin.brand.destroy', $query->id) . "' class='btn btn-danger delete-item'><i class='fa-regular fa-trash-can'></i></a>";
 
-                return $editBtn . $deleteBtn;
-            })
-            ->addColumn('logo', function ($query) {
-                return '<i style="font-size:40px" class="' . $query->logo . '"></i>';
+                    return $deleteBtn;
+                }
             })
             ->addColumn('status', function ($query) {
-                if ($query->status == 1) {
-                    $button = '<label class="custom-switch mt-2">
+                if($query->id != 1){
+                    if ($query->status == 'active') {
+                        $button = '<label class="custom-switch mt-2">
                     <input checked type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
                     <span class="custom-switch-indicator"></span>
                 </label>';
-                } else {
-                    $button = '<label class="custom-switch mt-2">
+                    } else {
+                        $button = '<label class="custom-switch mt-2">
                     <input type="checkbox" name="custom-switch-checkbox" data-id="' . $query->id . '" class="custom-switch-input change-status">
                     <span class="custom-switch-indicator"></span>
                 </label>';
-                }
-                return $button;
-            })
-            ->addColumn('is_featured', function ($query) {
-                $active = '<i class="badge badge-success">Yes</i>';
-                $inActive = '<i class="badge danger">No</i>';
-                if ($query->if_featured == 1) {
-                    return $active;
-                } else {
-                    return $inActive;
+                    }
+                    return $button;
                 }
             })
-            ->rawColumns(['logo', 'action', 'status', 'is_featured'])
+            ->rawColumns(['action', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Brand $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('role', 'admin')->newQuery();
     }
 
     /**
@@ -72,7 +63,7 @@ class BrandDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('brand-table')
+                    ->setTableId('adminlist-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -95,14 +86,14 @@ class BrandDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('logo')->width(200),
-            Column::make('name')->width(300),
-            Column::make('is_featured'),
+            Column::make('name'),
+            Column::make('email'),
+            Column::make('role'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(60)
                 ->addClass('text-center'),
         ];
     }
@@ -112,6 +103,6 @@ class BrandDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Brand_' . date('YmdHis');
+        return 'AdminList_' . date('YmdHis');
     }
 }

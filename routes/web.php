@@ -1,18 +1,22 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\TermsAndConditionsController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsLetterController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ProductTrackController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\UserVendorRequestController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +69,23 @@ Route::get('/coupon-calculation', [CartController::class, 'couponCalculation'])-
 Route::post('/news-letter-request', [NewsLetterController::class, 'newsLetterRequest'])->name('news-letter-request');
 Route::get('/news-letter-verify/{token}', [NewsLetterController::class, 'newsLetterEmailVerify'])->name('news-letter-verify');
 
+/** Vendor page routes */
+Route::get('/vendor', [HomeController::class, 'vendorPage'])->name('vendor.index');
+Route::get('/vendor-product/{id}', [HomeController::class, 'vendorProductsPage'])->name('vendor.products');
+
+/** About page route */
+Route::get('/about', [PageController::class, 'about'])->name('about');
+
+/** Terms and conditions page route */
+Route::get('/terms-and-conditions', [PageController::class, 'termsAndCondition'])->name('terms-and-conditions');
+
+/** Contact routes */
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [PageController::class, 'handleContactForm'])->name('handle-contact-form');
+
+/** Product track routes */
+Route::get('/product-tracking', [ProductTrackController::class, 'index'])->name('product-tracking.index');
+
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
@@ -84,6 +105,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('/wishlist/remove-product/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     Route::get('/reviews', [ReviewController::class, 'index'])->name('review.index');
+
+    /** Vendor request routes */
+    Route::get('/vendor-request', [UserVendorRequestController::class, 'index'])->name('vendor-request.index');
+    Route::post('/vendor-request', [UserVendorRequestController::class, 'create'])->name('vendor-request.create');
 
     /** Product review routes */
     Route::post('/review', [ReviewController::class, 'create'])->name('review.create');

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\AdminListController;
 use App\Http\Controllers\Backend\AdminReviewController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\AdvertisementController;
@@ -8,12 +10,14 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\CustomerListController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\FooterGridThreeController;
 use App\Http\Controllers\Backend\FooterGridTwoController;
 use App\Http\Controllers\Backend\FooterInfoController;
 use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomePageSettingController;
+use App\Http\Controllers\Backend\ManageUserController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PaypalSettingsController;
@@ -30,7 +34,12 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubscribersController;
+use App\Http\Controllers\Backend\TermsAndConditionsController;
 use App\Http\Controllers\Backend\TransactionController;
+use App\Http\Controllers\Backend\VendorConditionController;
+use App\Http\Controllers\Backend\VendorListController;
+use App\Http\Controllers\Backend\VendorRequestController;
+use App\Models\TermsAndCondition;
 use Illuminate\Support\Facades\Route;
 
 /*Admin Routes*/
@@ -154,6 +163,38 @@ Route::put('/advertisement/homepage-banner-section-three', [AdvertisementControl
 Route::put('/advertisement/homepage-banner-section-four', [AdvertisementController::class, 'homepageBannerSectionFour'])->name('homepage-banner-section-four');
 Route::put('/advertisement/productpage-banner', [AdvertisementController::class, 'productPageBanner'])->name('productpage-banner');
 Route::put('/advertisement/cartpage-banner', [AdvertisementController::class, 'cartPageBanner'])->name('cartpage-banner');
+
+/** Vendor request routes */
+Route::get('/vendor-request', [VendorRequestController::class, 'index'])->name('vendor-request.index');
+Route::get('/vendor-request/{id}/show', [VendorRequestController::class, 'show'])->name('vendor-request.show');
+Route::put('/vendor-request/{id}/change-status', [VendorRequestController::class, 'changeStatus'])->name('vendor-request.change-status');
+
+/** Customer list routes */
+Route::get('/customer', [CustomerListController::class, 'index'])->name('customer.index');
+Route::put('/customer/change-status', [CustomerListController::class, 'changeStatus'])->name('customer.change-status');
+
+/** Admin list routes */
+Route::get('/admin-list', [AdminListController::class, 'index'])->name('admin-list.index');
+Route::put('/admin-list/change-status', [AdminListController::class, 'changeStatus'])->name('admin-list.change-status');
+Route::delete('/admin-list/{id}', [AdminListController::class, 'destroy'])->name('admin-list.destroy');
+
+/** Manage user routes */
+Route::get('/manage-user', [ManageUserController::class, 'index'])->name('manage-user.index');
+Route::post('/manage-user', [ManageUserController::class, 'create'])->name('manage-user.create');
+
+Route::get('/vendor-list', [VendorListController::class, 'index'])->name('vendor-list.index');
+Route::put('/vendor-list/change-status', [VendorListController::class, 'changeStatus'])->name('vendor-list.change-status');
+
+Route::get('/vendor-condition', [VendorConditionController::class, 'index'])->name('vendor-condition.index');
+Route::put('/vendor-condition/update', [VendorConditionController::class, 'update'])->name('vendor-condition.update');
+
+/**About routes */
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::put('/about/update', [AboutController::class, 'update'])->name('about.update');
+
+/** Terms and Conditions routes */
+Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'index'])->name('terms-and-conditions.index');
+Route::put('/terms-and-conditions/update', [TermsAndConditionsController::class, 'update'])->name('terms-and-conditions.update');
 
 /** Footer routes */
 Route::resource('/footer-info', FooterInfoController::class);
