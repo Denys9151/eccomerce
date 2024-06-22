@@ -149,9 +149,11 @@
                         </div>
                     @endforeach
                 </div>
-                @if($flashSaleItems->hasPages())
-                    {{ $flashSaleItems->links() }}
-                @endif
+                <div class="mt-5">
+                    @if($flashSaleItems->hasPages())
+                        {{ $flashSaleItems->links() }}
+                    @endif
+                </div>
             </div>
         </div>
     </section>

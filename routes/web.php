@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\TermsAndConditionsController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckOutController;
@@ -86,6 +87,11 @@ Route::post('/contact', [PageController::class, 'handleContactForm'])->name('han
 /** Product track routes */
 Route::get('/product-tracking', [ProductTrackController::class, 'index'])->name('product-tracking.index');
 
+/** Blog routes */
+Route::get('/blog-details/{slug}', [\App\Http\Controllers\Frontend\BlogController::class, 'blogDetails'])->name('blog-details');
+Route::get('/blog', [\App\Http\Controllers\Frontend\BlogController::class, 'blog'])->name('blog');
+
+
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
@@ -112,6 +118,9 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** Product review routes */
     Route::post('/review', [ReviewController::class, 'create'])->name('review.create');
+
+    /** Blog comment routes */
+    Route::post('/blog-comment', [\App\Http\Controllers\Frontend\BlogController::class, 'comment'])->name('blog-comment');
 
     /** Checkout routes */
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

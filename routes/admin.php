@@ -6,6 +6,9 @@ use App\Http\Controllers\Backend\AdminListController;
 use App\Http\Controllers\Backend\AdminReviewController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\AdvertisementController;
+use App\Http\Controllers\Backend\BlogCategoryController;
+use App\Http\Controllers\Backend\BlogCommentController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
@@ -149,6 +152,15 @@ Route::put('/popular-category-section', [HomePageSettingController::class, 'upda
 Route::put('/popular-slider-section-one', [HomePageSettingController::class, 'updateProductSliderSectionOne'])->name('popular-slider-section-one');
 Route::put('/popular-slider-section-two', [HomePageSettingController::class, 'updateProductSliderSectionTwo'])->name('popular-slider-section-two');
 Route::put('/popular-slider-section-three', [HomePageSettingController::class, 'updateProductSliderSectionThree'])->name('popular-slider-section-three');
+
+/** Blog routes */
+Route::put('/blog-category/change-status', [BlogCategoryController::class, 'changeStatus'])->name('blog-category.change-status');
+Route::resource('/blog-category', BlogCategoryController::class);
+
+Route::put('/blog/change-status', [BlogController::class, 'changeStatus'])->name('blog.change-status');
+Route::resource('/blog', BlogController::class);
+Route::get('/blog-comments', [BlogCommentController::class, 'index'])->name('blog.comments.index');
+Route::delete('/blog-comments/{id}/destroy', [BlogCommentController::class, 'destroy'])->name('blog.comments.destroy');
 
 /** Subscribers routes */
 Route::get('/subscribers', [SubscribersController::class, 'index'])->name('subscribers.index');
