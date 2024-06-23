@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\EmailConfiguration;
 use App\Models\GeneralSetting;
+use App\Models\LogoSetting;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    use ImageUploadTrait;
+
     public function index()
     {
         $generalSettings = GeneralSetting::first();
         $emailSettings = EmailConfiguration::first();
-        return view('admin.setting.index', compact('generalSettings', 'emailSettings'));
+        $logoSetting = LogoSetting::first();
+        return view('admin.setting.index', compact('generalSettings', 'emailSettings', 'logoSetting'));
     }
 
     public function generalSettingUpdate(Request $request)
@@ -75,6 +80,27 @@ class SettingController extends Controller
 
         toastr()->success('Updated Successfully', 'Success');
 
+        return redirect()->back();
+    }
+
+    public function logoSettingUpdate(Request $request)
+    {
+        $request->validate([
+            'logo' => ['image', 'max:2048'],
+            'favicon' => ['image', 'max:2048'],
+        ]);
+
+        $logoPath = $this->updateImage($request, 'logo', 'uploads', $request->old_log);
+        $favicon = $this->updateImage($request, 'favicon', 'uploads', $request->old_favicon);
+
+        LogoSetting::updateOrCreate(
+            ['id' => 1],
+            [
+                'logo' => !empty($logoPath) ? $logoPath : $request->old_logo,
+                'favicon' => !empty($favicon) ? $favicon : $request->old_favicon,
+            ]
+        );
+        toastr('Updated Successfully', 'success', 'Success');
         return redirect()->back();
     }
 }

@@ -154,9 +154,9 @@
                 </ul>
             </li>
 
-            <li><a class="nav-link{{ setActive(['admin.advertisement.index']) }}" href="{{ route('admin.advertisement.index') }}"><i class="far fa-square"></i> <span>Advertisement</span></a></li>
-            <li><a class="nav-link{{ setActive(['admin.subscribers.index']) }}" href="{{ route('admin.subscribers.index') }}"><i class="far fa-square"></i> <span>Subscribers</span></a></li>
-            <li><a class="nav-link{{ setActive(['admin.settings.index']) }}" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
+            <li class="{{ setActive(['admin.advertisement.index']) }}"><a class="nav-link {{ setActive(['admin.advertisement.index']) }}" href="{{ route('admin.advertisement.index') }}"><i class="far fa-square"></i> <span>Advertisement</span></a></li>
+            <li class="{{ setActive(['admin.subscribers.index']) }}"><a class="nav-link {{ setActive(['admin.subscribers.index']) }}" href="{{ route('admin.subscribers.index') }}"><i class="far fa-square"></i> <span>Subscribers</span></a></li>
+            <li class="{{ setActive(['admin.settings.index']) }}"><a class="nav-link {{ setActive(['admin.settings.index']) }}" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
 
             {{--<li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
