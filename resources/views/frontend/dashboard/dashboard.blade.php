@@ -12,43 +12,51 @@
 
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
+                    <h3>User Dashboard</h3>
+                    <br>
                     <div class="dashboard_content">
                         <div class="wsus__dashboard">
                             <div class="row">
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item red" href="dsahboard_order.html">
-                                        <i class="far fa-address-book"></i>
-                                        <p>order</p>
+                                    <a class="wsus__dashboard_item red" href="{{ route('user.orders.index') }}">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <p>Total Order</p>
+                                        <h4 style="color: #fff;">{{ $totalOrder }}</h4>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item green" href="dsahboard_download.html">
-                                        <i class="fal fa-cloud-download"></i>
-                                        <p>download</p>
+                                    <a class="wsus__dashboard_item green" href="{{ route('user.orders.index') }}">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <p>Pending Order</p>
+                                        <h4 style="color: #fff;">{{ $pendingOrder }}</h4>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item sky" href="dsahboard_review.html">
+                                    <a class="wsus__dashboard_item sky" href="{{ route('user.orders.index') }}">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <p>Pending Order</p>
+                                        <h4 style="color: #fff;">{{ $completeOrder }}</h4>
+                                    </a>
+                                </div>
+                                <div class="col-xl-2 col-6 col-md-4">
+                                    <a class="wsus__dashboard_item blue" href="{{ route('review.index') }}">
                                         <i class="fas fa-star"></i>
-                                        <p>review</p>
+                                        <p>Reviews</p>
+                                        <h4 style="color: #fff;">{{ $reviews }}</h4>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item blue" href="dsahboard_wishlist.html">
-                                        <i class="far fa-heart"></i>
-                                        <p>wishlist</p>
+                                    <a class="wsus__dashboard_item blue" href="{{ route('wishlist.index') }}">
+                                        <i class="fas fa-star"></i>
+                                        <p>Wishlist</p>
+                                        <h4 style="color: #fff;">{{ $wishlist }}</h4>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item orange" href="dsahboard_profile.html">
-                                        <i class="fas fa-user-shield"></i>
-                                        <p>profile</p>
-                                    </a>
-                                </div>
-                                <div class="col-xl-2 col-6 col-md-4">
-                                    <a class="wsus__dashboard_item purple" href="dsahboard_address.html">
-                                        <i class="fal fa-map-marker-alt"></i>
-                                        <p>address</p>
+                                    <a class="wsus__dashboard_item purple" href="{{ route('user.profile') }}">
+                                        <i class="fas fa-star"></i>
+                                        <p>Profile</p>
+                                        <h4 style="color: #fff;">-</h4>
                                     </a>
                                 </div>
                             </div>
