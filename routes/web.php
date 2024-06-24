@@ -142,6 +142,9 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('/stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
 
     /** Razorpay routes */
-    Route::post('/razorpay/payment', [PaymentController::class, 'payWithRazorpay'])->name('razorpay.payment');
+    Route::post('/razorpay/payment', [PaymentController::class, 'payWithRazorPay'])->name('razorpay.payment');
+
+    /** COD routes */
+    Route::get('/cod/payment', [PaymentController::class, 'payWithCod'])->name('cod.payment');
 });
 

@@ -51,7 +51,7 @@
                         <li><a class="{{ setActive(['contact']) }}" href="{{ route('contact') }}">contact</a></li>
                     </ul>
                     <ul class="wsus__menu_item wsus__menu_item_right">
-                        <li><a class="{{ setActive(['product-tracking.index']) }}" href="{{ route('product-tracking.index') }}">track order</a></li>'
+                        <li><a class="{{ setActive(['product-tracking.index']) }}" href="{{ route('product-tracking.index') }}">track order</a></li>
                         @if(auth()->check())
                             <li><a href="{{ route('user.dashboard') }}">my account</a></li>
                         @else
