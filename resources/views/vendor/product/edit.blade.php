@@ -130,17 +130,6 @@
                                     </div>
 
                                     <div class="form-group margin_input">
-                                        <label for="inputState">Product Type</label>
-                                        <select id="inputState" class="form-control" name="product_type">
-                                            <option value="">Select</option>
-                                            <option {{ $product->product_type == 'new_arrival' ? 'selected' : '' }} value="new_arrival">New Arrival</option>
-                                            <option {{ $product->product_type == 'featured_product' ? 'selected' : '' }} value="featured_product">Featured</option>
-                                            <option {{ $product->product_type == 'top_product' ? 'selected' : '' }} value="top_product">Top Product</option>
-                                            <option {{ $product->product_type == 'best_product' ? 'selected' : '' }} value="best_product">Best Product</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group margin_input">
                                         <label>Seo Title</label>
                                         <input type="text" class="form-control" name="seo_title"
                                                value="{{ $product->seo_title }}">

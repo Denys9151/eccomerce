@@ -43,8 +43,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
-
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 
 /** Product route */
@@ -91,6 +89,8 @@ Route::get('/product-tracking', [ProductTrackController::class, 'index'])->name(
 Route::get('/blog-details/{slug}', [\App\Http\Controllers\Frontend\BlogController::class, 'blogDetails'])->name('blog-details');
 Route::get('/blog', [\App\Http\Controllers\Frontend\BlogController::class, 'blog'])->name('blog');
 
+/** Add product in wishlist route */
+Route::get('/wishlist/add-product', [WishlistController::class, 'addToWishlist'])->name('wishlist.store');
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -107,7 +107,6 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** Wishlist routes */
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-    Route::get('/wishlist/add-product', [WishlistController::class, 'addToWishlist'])->name('wishlist.store');
     Route::get('/wishlist/remove-product/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     Route::get('/reviews', [ReviewController::class, 'index'])->name('review.index');

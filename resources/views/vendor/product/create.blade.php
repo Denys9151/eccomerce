@@ -1,4 +1,4 @@
-@extends('vendor.layouts.master')
+    @extends('vendor.layouts.master')
 
 @section('title')
     {{ $settings->site_name }} || Product
@@ -118,17 +118,6 @@
                                     <div class="form-group margin_input">
                                         <label>Long Description</label>
                                         <textarea name="long_description" class="form-control summernote"></textarea>
-                                    </div>
-
-                                    <div class="form-group margin_input">
-                                        <label for="inputState">Product Type</label>
-                                        <select id="inputState" class="form-control" name="product_type">
-                                            <option value="">Select</option>
-                                            <option value="new_arrival">New Arrival</option>
-                                            <option value="featured_product">Featured</option>
-                                            <option value="top_product">Top Product</option>
-                                            <option value="best_product">Best Product</option>
-                                        </select>
                                     </div>
 
                                     <div class="form-group margin_input">
