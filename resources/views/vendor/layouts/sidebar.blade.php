@@ -10,7 +10,9 @@
         <li><a class="{{ setActive(['vendor.orders.*']) }}" href="{{ route('vendor.orders.index') }}"><i class="far fa-box"></i>Orders</a></li>
 
         <li><a class="{{ setActive(['vendor.products.*']) }}" href="{{ route('vendor.products.index') }}"><i class="far fa-cart-plus"></i>Products</a></li>
-        <li><a class="{{ setActive(['vendor.reviews.*']) }}" href="{{ route('vendor.reviews.index') }}"><i class="far fa-star"></i>Review</a></li>
+        <li><a class="{{ setActive(['vendor.reviews.*']) }}" href="{{ route('vendor.reviews.index') }}"><i class="fas fa-star"></i>Review</a></li>
+
+        <li><a class="{{ setActive(['vendor.withdraw.*']) }}" href="{{ route('vendor.withdraw.index') }}"><i class="fas fa-star"></i>My Withdraw</a></li>
 
         <li><a class="{{ setActive(['vendor.shop-profile.*']) }}" href="{{ route('vendor.shop-profile.index') }}"><i class="far fa-user"></i>Shop Profile</a></li>
         <li><a class="{{ setActive(['vendor.profile']) }}" href="{{ route('vendor.profile') }}"><i class="far fa-user"></i> My Profile</a></li>
@@ -21,6 +23,5 @@
                 this.closest('form').submit();"><i class="far fa-sign-out-alt"></i> Log out</a>
             </form>
         </li>
-
     </ul>
 </div>

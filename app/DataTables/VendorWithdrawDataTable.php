@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Vendor;
+use App\Models\WithdrawRequest;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class VendorRequestDataTable extends DataTable
+class VendorWithdrawDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,25 +23,27 @@ class VendorRequestDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $showBtn = "<a href='" . route('admin.vendor-request.show', $query->id) . "' class='btn btn-primary'><i class='fa-regular fa-eye'></i></a>";
+                $showBtn = "<a href='" . route('vendor.withdraw-request.show', $query->id) . "' class='btn btn-primary'><i class='fa-regular fa-eye'></i></a>";
 
                 return $showBtn;
             })
-            ->addColumn('user_name', function ($query){
-                return $query->user->name;
-            })
-            ->addColumn('shop_name', function ($query){
-                return $query->shop_name;
-            })
-            ->addColumn('shop_email', function ($query){
-                return $query->email;
-            })
             ->addColumn('status', function ($query){
-                if($query->status == 0){
+                if($query->status == 'pending'){
                     return '<span class="badge bg-warning">Pending</span>';
-                } elseif($query->status == 1){
-                    return '<span class="badge bg-success">Approved</span>';
+                } elseif($query->status == 'paid'){
+                    return '<span class="badge bg-success">Paid</span>';
+                } else {
+                    return '<span class="badge bg-danger">Declined</span>';
                 }
+            })
+            ->addColumn('total_amount', function ($query){
+                return getCurrencyIcon() . $query->total_amount;
+            })
+            ->addColumn('withdraw_amount', function ($query){
+                return getCurrencyIcon() . $query->withdraw_amount;
+            })
+            ->addColumn('withdraw_charge', function ($query){
+                return getCurrencyIcon() . $query->withdraw_charge;
             })
             ->rawColumns(['action', 'status'])
             ->setRowId('id');
@@ -50,9 +52,9 @@ class VendorRequestDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Vendor $model): QueryBuilder
+    public function query(WithdrawRequest $model): QueryBuilder
     {
-        return $model->where('status', 0)->newQuery();
+        return $model->where('vendor_id', auth()->id())->newQuery();
     }
 
     /**
@@ -61,7 +63,7 @@ class VendorRequestDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('vendorrequest-table')
+                    ->setTableId('vendorwithdraw-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -84,9 +86,10 @@ class VendorRequestDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('user_name'),
-            Column::make('shop_name'),
-            Column::make('shop_email'),
+            Column::make('method'),
+            Column::make('total_amount'),
+            Column::make('withdraw_amount'),
+            Column::make('withdraw_charge'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -101,6 +104,6 @@ class VendorRequestDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'VendorRequest_' . date('YmdHis');
+        return 'VendorWithdraw_' . date('YmdHis');
     }
 }

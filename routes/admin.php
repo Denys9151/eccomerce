@@ -43,7 +43,8 @@ use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorListController;
 use App\Http\Controllers\Backend\VendorRequestController;
-use App\Models\TermsAndCondition;
+use App\Http\Controllers\Backend\WithdrawController;
+use App\Http\Controllers\Backend\WithdrawMethodController;
 use Illuminate\Support\Facades\Route;
 
 /*Admin Routes*/
@@ -141,6 +142,12 @@ Route::resource('/order', OrderController::class);
 
 /** Order Transaction route */
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction');
+
+/** Withdraw method route */
+Route::resource('/withdraw-method', WithdrawMethodController::class);
+Route::get('/withdraw', [WithdrawController::class, 'index'])->name('withdraw.index');
+Route::get('/withdraw/{id}', [WithdrawController::class, 'show'])->name('withdraw.show');
+Route::put('/withdraw/{id}', [WithdrawController::class, 'update'])->name('withdraw.update');
 
 /** Settings routes */
 Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

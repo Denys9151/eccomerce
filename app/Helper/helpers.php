@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\GeneralSetting;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 
@@ -120,4 +121,9 @@ function getFinalPayableAmount()
 function limitText($text, $limit = 20)
 {
     return \Str::limit($text, $limit);
+}
+
+function getCurrencyIcon()
+{
+    return GeneralSetting::first()->currency_icon;
 }
