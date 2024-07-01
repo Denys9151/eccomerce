@@ -17,14 +17,16 @@ class FrontendProductController extends Controller
 {
     public function productsIndex(Request $request)
     {
-        if ($request->has('category')) {
+        if($request->has('category')){
             $category = Category::where('slug', $request->category)->firstOrFail();
-            $products = Product::where([
-                'category_id' => $category->id,
-                'status' => 1,
-                'is_approved' => 1,
-            ])
-                ->when($request->has('range'), function ($query) use ($request) {
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where([
+                    'category_id' => $category->id,
+                    'status' => 1,
+                    'is_approved' => 1
+                ])
+                ->when($request->has('range'), function($query) use ($request){
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
@@ -32,14 +34,16 @@ class FrontendProductController extends Controller
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
-        } elseif ($request->has('subcategory')) {
+        }elseif($request->has('subcategory')){
             $category = SubCategory::where('slug', $request->subcategory)->firstOrFail();
-            $products = Product::where([
-                'sub_category_id' => $category->id,
-                'status' => 1,
-                'is_approved' => 1,
-            ])
-                ->when($request->has('range'), function ($query) use ($request) {
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where([
+                    'sub_category_id' => $category->id,
+                    'status' => 1,
+                    'is_approved' => 1
+                ])
+                ->when($request->has('range'), function($query) use ($request){
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
@@ -47,14 +51,17 @@ class FrontendProductController extends Controller
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
-        } elseif ($request->has('childcategory')) {
+        }elseif($request->has('childcategory')){
             $category = ChildCategory::where('slug', $request->childcategory)->firstOrFail();
-            $products = Product::where([
-                'child_category_id' => $category->id,
-                'status' => 1,
-                'is_approved' => 1,
-            ])
-                ->when($request->has('range'), function ($query) use ($request) {
+
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where([
+                    'child_category_id' => $category->id,
+                    'status' => 1,
+                    'is_approved' => 1
+                ])
+                ->when($request->has('range'), function($query) use ($request){
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
@@ -62,14 +69,17 @@ class FrontendProductController extends Controller
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
-        } elseif ($request->has('brand')) {
+        }elseif($request->has('brand')){
             $brand = Brand::where('slug', $request->brand)->firstOrFail();
-            $products = Product::where([
-                'brand_id' => $brand->id,
-                'status' => 1,
-                'is_approved' => 1,
-            ])
-                ->when($request->has('range'), function ($query) use ($request) {
+
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where([
+                    'brand_id' => $brand->id,
+                    'status' => 1,
+                    'is_approved' => 1
+                ])
+                ->when($request->has('range'), function($query) use ($request){
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
@@ -77,8 +87,10 @@ class FrontendProductController extends Controller
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
-        } elseif ($request->has('search')) {
-            $products = Product::where(['status' => 1, 'is_approved' => 1])
+        }elseif($request->has('search')){
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where(['status' => 1, 'is_approved' => 1])
                 ->where(function ($query) use ($request){
                     $query->where('name', 'like', '%'.$request->search.'%')
                         ->orWhere('long_description', 'like', '%'.$request->search.'%')
@@ -88,8 +100,11 @@ class FrontendProductController extends Controller
                         });
                 })
                 ->paginate(12);
-        } else {
-            $products = Product::where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->paginate(12);
+
+        }else {
+            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
+                ->with(['variants', 'category', 'productImageGalleries'])
+                ->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'DESC')->paginate(12);
         }
 
         $productpage_banner_section = Advertisement::where('key', 'productpage_banner_section')->first();

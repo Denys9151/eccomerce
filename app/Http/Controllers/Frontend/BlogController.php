@@ -13,13 +13,19 @@ class BlogController extends Controller
 {
     public function blog(Request $request)
     {
-        if ($request->has('search')){
-            $blogs = Blog::where('title', 'like', '%'.$request->search.'%')->where('status', 1)->paginate(12);
-        } elseif($request->has('category')){
-            $category = BlogCategory::where('slug', $request->category)->where('status', 1)->firstOrFail();
-            $blogs = Blog::where('category_id', $category->id)->where('status', 1)->paginate(12);
+        if ($request->has('search')) {
+            $blogs = Blog::with('category')->where('title', 'like', '%' . $request->search . '%')
+                ->where('status', 1)->orderBy('id', 'DESC')
+                ->paginate(12);
+        } elseif ($request->has('category')) {
+            $category = BlogCategory::where('slug', $request->category)
+                ->where('status',1)->firstOrFail();
+
+            $blogs = Blog::with('category')->where('category_id', $category->id)
+                ->where('status', 1)->orderBy('id', 'DESC')
+                ->paginate(12);
         } else {
-            $blogs = Blog::where('status', 1)->orderBy('id', 'DESC')->paginate(12);
+            $blogs = Blog::with('category')->where('status', 1)->orderBy('id', 'DESC')->paginate(12);
         }
         return view('frontend.pages.blog', compact('blogs'));
     }
